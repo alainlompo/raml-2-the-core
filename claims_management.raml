@@ -1,0 +1,68 @@
+#%RAML 0.8
+	---
+	title: e-claim insurance management API
+	baseUri: http://api.claiminsurance-man/{version}
+	/users:
+		/customers
+			/{dateFirstInsurance}:
+		/experts:
+		/repairers:
+		/claims:
+			get:
+				queryParameters:
+					customer:
+					category:
+					dateOccurence:
+			post:
+			put:
+				queryParameters:
+					accessToken:
+			/{claimId}:
+				get:
+					descrption: retrieve a given claim with the help of a few parameters
+					responses:
+						200:
+							body:
+								application/json:
+									example: |
+										{
+											"data": {
+												"claimId": "CLM-A-25",
+												"title":"A flat tire close to Alpha 55",
+												"description": "new driver, did not know what to do: paniq!!!",
+												"dateOccurence":"1533325454",
+												"category":"CAR_ACCIDENT",
+												"customer":"Mouwniroo Banshikroun",
+												"link":"http://api.claiminsurance-man/claims/CLM-A25"
+											},
+											"success":true,
+											"statuts":200											
+										}										
+					queryParameters:
+						customer:
+							displayName:Customer
+							type:string
+							description: A customer's short presentation
+							example: ALKEY Chicago's peanuts magnat
+							required: false
+						category:
+							displayName: Category
+							type: string
+							example:CAR_ACCIDENT
+							required: false
+						dateOccurrence:
+							displayName: Occurence date
+							type: dateTime
+							example: 2016/04/03
+							required:false
+				put:
+				delete:
+				/customer:
+					get:
+						queryParameters:
+							accessToken:
+								displayName: Access token
+								type: string
+								description: permission + authorization in one token
+								required:true
+		
