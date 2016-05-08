@@ -1,0 +1,68 @@
+#%RAML 0.8
+title: IT Training Ordering Service
+version: 1.0-Development
+#baseUri: http://www.it-trainings.com/api
+baseUri: http://mocksvc.mulesoft.com/mocks/14377640-99bb-416c-b9f6-59928d5957ea/api
+/products:
+  displayName: Products
+  get:
+    description: gets the collection of training products
+    responses:
+       200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "productCode": "JLM",
+                  "duration": "5 days",
+                  "description": "Java language mastery",
+                  "prerequisite": "Level 2"
+                },
+                {
+                  "productCode": "JWC",
+                  "duration": "5 days",
+                  "description": "Java Web Components",
+                  "prerequisite": "Level 2"
+                }
+              ]
+/orders:
+  displayName: Orders
+  post:
+    description: Places a new training order
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "orderId": "3585"
+              }
+      500:
+        body:
+          application/json:
+            example: |
+              {
+                "errorMessage": "The order couldn't be entered."
+              }
+  /{orderId}/status:
+    displayName: Status
+    get:
+      description: Get the status of an existing order
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "orderId": "4321",
+                  "status": "Delivered",
+                  "duration": "5 days"
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "The orderId doesn't match the specified e-mail"
+                }
