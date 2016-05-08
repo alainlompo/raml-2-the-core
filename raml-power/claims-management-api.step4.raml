@@ -1,0 +1,54 @@
+#%RAML 0.8
+title: Automobile claims management api
+baseUri: http://api.autoclaims.com
+version: 1
+
+/declarations:
+	get:
+		description: This gets the collection of auto claims declarations
+		responses:
+			200:
+				headers:
+					cache-control:
+						example: |
+							public, no-cache, no-store
+				body:
+					application/json:
+						schema: |
+						  {
+							  "type": "object",
+							  "$schema": "http://json-schema.org/draft-03/schema",
+							  "id": "http://jsonschema.net",
+							  "required": true,
+							  "properties": {
+								"firstName": {
+								  "type": "string",
+								  "required": true
+								},
+								"lastName": {
+								  "type": "string",
+								  "required": true,
+								  "minLength": 3,
+								  "maxLength": 36
+								}
+							  }
+						  }
+					application/xml
+						example: |
+							<name>Michael Stow</name>
+			400:
+				#....
+			401:
+				#....
+				
+		/sub-resource:
+		get:
+		  queryParameters:
+			clientId:
+			  description: "the client's id"
+			  example: HYPNV
+			  required: true
+			  type: string
+					
+	post:
+		description: This adds a new item to the auto claims declarations collection

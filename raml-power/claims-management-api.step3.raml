@@ -1,0 +1,29 @@
+#%RAML 0.8
+title: Automobile claims management api
+baseUri: http://api.autoclaims.com
+version: 1
+
+/declarations:
+	get:
+		description: This gets the collection of auto claims declarations
+		responses:
+			200:
+				headers:
+					cache-control:
+						example: |
+							public, no-cache, no-store
+				body:
+					application/json:
+						example: |
+							{"name":"Michael Stow"}
+					application/xml
+						example: |
+							<name>Michael Stow</name>
+			400:
+				#....
+			401:
+				#....
+				
+					
+	post:
+		description: This adds a new item to the auto claims declarations collection
