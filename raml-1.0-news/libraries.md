@@ -17,6 +17,6 @@ uses:
   description: All the modules
   type:
     CRUD.collection:
-      typename: User.full
-      typename-new: User.new
+      typename: Module.full
+      typename-new: Module.new
 </pre>
