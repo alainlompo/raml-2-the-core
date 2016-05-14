@@ -1,0 +1,60 @@
+#%RAML 1.0
+title: Shop Api
+uses:
+  FinancialLib: !include FinancialLib.raml
+  CollectionsCoreLib: !include CollectionsCoreLib.raml
+  PetBaseLib: !include PetBaseLib.raml
+version: 1.0
+baseUri: /eShop
+types:
+  TestType:
+    type: object
+    properties:
+      id: number
+      optional?: string
+      expanded:
+        type: object
+        properties:
+          count: number
+
+  Mammal:
+    type: PetBaseLib.Pet
+
+  Bird:
+    type: PetBaseLib.Pet
+    properties:
+      wingLength: number
+/pets:
+  type:  {CollectionsCoreLib.Collection: {item : PetBaseLib.Pet }}
+  /{id}:
+    type:  { CollectionsCoreLib.Member: {item : PetBaseLib.Pet } }
+  get:
+    queryParameters:
+      petKind:
+        type:
+          enum: [bird, mammal]
+    is: [FinancialLib.filterableByPrice]
+
+/birds:
+  type:  { CollectionsCoreLib.Collection: {item : Bird } }
+  get:
+    is: [FinancialLib.filterableByPrice]
+  /{id}:
+    type:  { CollectionsCoreLib.Member: {item : Bird} }
+
+/mammals:
+  type:  { CollectionsCoreLib.Collection: {item : Mammal} }
+  get:
+    is: [FinancialLib.filterableByPrice]
+  /{id}:
+    type:  { CollectionsCoreLib.Member: {item : Mammal} }
+/helloWorld:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "message" : "Hello World"
+              }
